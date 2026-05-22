@@ -1,7 +1,9 @@
 {
   "extends": "@repo/typescript-config/tanstack-start.json",
-  "include": ["**/*.ts", "**/*.tsx"],
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["src/stories/**", ".storybook/**", "node_modules", "storybook-static", ".output"],
   "compilerOptions": {
+    "types": ["vite/client", "node"],
     "paths": {
       "#/*": ["./src/*"],
       "@/*": ["./src/*"]

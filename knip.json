@@ -5,11 +5,19 @@
       "entry": ["knip.json"]
     },
     "apps/web": {
-      "entry": ["src/router.tsx", "src/routes/**/*.{ts,tsx}", "src/env.ts"],
-      "project": ["src/**/*.{ts,tsx}"],
+      "entry": [
+        "src/router.tsx",
+        "src/routes/**/*.{ts,tsx}",
+        "src/env.ts",
+        ".storybook/main.ts",
+        ".storybook/preview.tsx",
+        "src/**/*.stories.@(ts|tsx)"
+      ],
+      "project": ["src/**/*.{ts,tsx}", ".storybook/**/*.{ts,tsx}"],
       "vite": true,
       "vitest": true,
       "tailwind": true,
+      "storybook": true,
       "ignoreDependencies": [
         "@tanstack/react-router-ssr-query",
         "@tanstack/router-plugin",
@@ -17,7 +25,11 @@
         "tailwindcss",
         "@tailwindcss/typography",
         "@testing-library/dom",
-        "@testing-library/react"
+        "@testing-library/react",
+        "@chromatic-com/storybook",
+        "@vitest/browser-playwright",
+        "@vitest/coverage-v8",
+        "playwright"
       ]
     },
     "packages/typescript-config": {

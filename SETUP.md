@@ -107,6 +107,50 @@ pnpm check-types    # tsc --noEmit across workspaces
 pnpm clean          # Remove build outputs + node_modules
 ```
 
+## Storybook (10.4)
+
+Co-located with the TanStack Start app at `apps/web/.storybook/`, using the `@storybook/tanstack-react` framework so stories share the app's Vite config, Tailwind v4 plugin, and TanStack Router/Start runtime (server functions auto-stubbed per the 10.4 release).
+
+```bash
+pnpm --filter @redomicile/web storybook         # dev server on http://localhost:6006
+pnpm --filter @redomicile/web build-storybook   # static build to apps/web/storybook-static/
+```
+
+Or via turbo from the repo root: `pnpm turbo run storybook` / `pnpm turbo run build-storybook`.
+
+### Type-checking — app vs. Storybook are split
+
+The app's type-check and Storybook's type-check are intentionally separate `tsc` invocations so a TS error in a story can't block the app check (and vice versa). They never share a pass.
+
+- `apps/web/tsconfig.json` — app code only (`src/**/*.{ts,tsx}` minus `src/stories/**` and `.storybook/**`). Used by `pnpm check-types` and by the IDE.
+- `apps/web/tsconfig.storybook.json` — Storybook surface (`.storybook/**` + `src/stories/**`). Extends the app config so paths (`#/*`, `@/*`) and JSX settings carry through. Also includes `src/routeTree.gen.ts` so the TanStack Router module augmentation is in scope — needed by the scaffolded `Page.stories.ts` route-mocking demo. As a side effect, the route files (`__root.tsx`, `index.tsx`, `router.tsx`) get pulled in transitively through that import, so a route-level type error will surface in `check-types:storybook` too. That's fine: the two scripts remain fully independent, non-overlapping `tsc` invocations.
+
+Commands:
+
+```bash
+pnpm --filter @redomicile/web check-types               # app only
+pnpm --filter @redomicile/web check-types:storybook     # Storybook only
+pnpm turbo run check-types:storybook                    # same, via turbo
+```
+
+`pnpm check` at the repo root only runs the app-level `check-types`. Storybook type-checking is opt-in.
+
+Full details, asymmetry rationale, and verification recipe: see [`apps/web/TYPE_CHECKING.md`](./apps/web/TYPE_CHECKING.md).
+
+### AI agent integration (MCP)
+
+`@storybook/addon-mcp` exposes an HTTP MCP server at `http://localhost:6006/mcp` whenever Storybook dev is running. The repo registers it for Claude Code via `.mcp.json` at project scope, so agents working in this repo can:
+
+- `list-all-documentation` / `get-documentation` — introspect components
+- `get-storybook-story-instructions` — receive house-style guidance for generating new stories
+- `preview-stories` — render generated stories in-chat
+- `run-story-tests` — execute interaction + a11y tests via `@storybook/addon-vitest`
+
+Agent workflow: start `pnpm --filter @redomicile/web storybook`, then prompt the agent (e.g. "list documented components" or "generate a story for `<Component>`"). The MCP server is React-only and currently in preview (API may shift in minor releases).
+
+### Known follow-ups
+- Playwright browser binaries were not auto-installed (blocked by pnpm's build-script approval). Run `pnpm --filter @redomicile/web exec playwright install chromium` before using the `run-story-tests` MCP tool or `pnpm --filter @redomicile/web exec vitest --project=storybook`.
+
 ## What Was Intentionally Left Out
 
 - No `apps/api`, `apps/docs`, or any second app

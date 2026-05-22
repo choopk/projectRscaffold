@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    ".storybook/**/*.ts",
+    ".storybook/**/*.tsx",
+    "src/stories/**/*.ts",
+    "src/stories/**/*.tsx",
+    "src/routeTree.gen.ts"
+  ],
+  "exclude": ["node_modules", "storybook-static", ".output"]
+}
