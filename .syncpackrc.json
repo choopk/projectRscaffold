@@ -1,0 +1,22 @@
+{
+  "$schema": "https://unpkg.com/syncpack@13/dist/schema.json",
+  "indent": "  ",
+  "lintFormatting": false,
+  "dependencyTypes": ["prod", "dev", "peer", "resolutions", "overrides", "pnpmOverrides"],
+  "semverGroups": [
+    {
+      "label": "Pin workspace-internal packages exactly",
+      "packages": ["**"],
+      "dependencies": ["@repo/**"],
+      "range": ""
+    }
+  ],
+  "versionGroups": [
+    {
+      "label": "Workspace protocol for internal packages",
+      "packages": ["**"],
+      "dependencies": ["@repo/**"],
+      "pinVersion": "workspace:*"
+    }
+  ]
+}

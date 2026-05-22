@@ -1,0 +1,31 @@
+{
+  "$schema": "https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainer.schema.json",
+  "name": "redomicile",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:1-22-bookworm",
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {}
+  },
+  "containerEnv": {
+    "COREPACK_ENABLE_DOWNLOAD_PROMPT": "0"
+  },
+  "onCreateCommand": "corepack enable && corepack prepare pnpm@11.2.2 --activate",
+  "postCreateCommand": "pnpm install --frozen-lockfile",
+  "forwardPorts": [3000],
+  "portsAttributes": {
+    "3000": {
+      "label": "web (TanStack Start)",
+      "onAutoForward": "notify"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "biomejs.biome",
+        "oxc.oxc-vscode",
+        "bradlc.vscode-tailwindcss",
+        "editorconfig.editorconfig"
+      ]
+    }
+  },
+  "remoteUser": "node"
+}

@@ -15,11 +15,17 @@
     "format": "biome format --write .",
     "format:check": "biome format .",
     "check": "pnpm lint && pnpm format:check && pnpm check-types",
+    "knip": "knip",
+    "deps:check": "syncpack list-mismatches",
+    "deps:fix": "syncpack fix-mismatches",
+    "deps:update": "pnpm dlx taze -r",
     "clean": "turbo run clean && rm -rf node_modules .turbo"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.15",
+    "knip": "^5.41.1",
     "oxlint": "^1.66.0",
+    "syncpack": "^13.0.0",
     "turbo": "2.9.14",
     "typescript": "6.0.3"
   }

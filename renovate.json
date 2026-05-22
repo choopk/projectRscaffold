@@ -1,0 +1,45 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":pinDevDependencies",
+    ":dependencyDashboard",
+    ":semanticCommits",
+    "group:monorepos",
+    "group:recommended",
+    "schedule:weekly"
+  ],
+  "rangeStrategy": "bump",
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 5am on monday"]
+  },
+  "packageRules": [
+    {
+      "matchPackagePatterns": ["^@tanstack/"],
+      "groupName": "tanstack",
+      "groupSlug": "tanstack"
+    },
+    {
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "devDependencies (non-major)"
+    },
+    {
+      "matchPackageNames": ["typescript"],
+      "rangeStrategy": "pin"
+    },
+    {
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["pin", "digest", "patch", "minor"],
+      "automerge": true,
+      "automergeType": "branch"
+    },
+    {
+      "matchPackageNames": ["node"],
+      "matchManagers": ["nvm"],
+      "enabled": true
+    }
+  ],
+  "ignorePaths": ["**/node_modules/**", "**/.output/**", "**/.vinxi/**", "**/dist/**"]
+}

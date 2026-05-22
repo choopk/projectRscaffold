@@ -1,15 +1,20 @@
 {
-    "workbench.colorCustomizations": {
-        "activityBar.background": "#511C1C",
-        "titleBar.activeBackground": "#712727",
-        "titleBar.activeForeground": "#FEFBFB",
-        "titleBar.inactiveBackground": "#511C1C",
-        "titleBar.inactiveForeground": "#FEFBFB",
-        "statusBar.background": "#511C1C",
-        "statusBar.foreground": "#FEFBFB",
-        "statusBar.debuggingBackground": "#511C1C",
-        "statusBar.debuggingForeground": "#FEFBFB",
-        "statusBar.noFolderBackground": "#511C1C",
-        "statusBar.noFolderForeground": "#FEFBFB"
-    }
+  "editor.defaultFormatter": "biomejs.biome",
+  "editor.formatOnSave": true,
+  "[javascript]": { "editor.defaultFormatter": "biomejs.biome" },
+  "[javascriptreact]": { "editor.defaultFormatter": "biomejs.biome" },
+  "[typescript]": { "editor.defaultFormatter": "biomejs.biome" },
+  "[typescriptreact]": { "editor.defaultFormatter": "biomejs.biome" },
+  "[json]": { "editor.defaultFormatter": "biomejs.biome" },
+  "[jsonc]": { "editor.defaultFormatter": "biomejs.biome" },
+  "[css]": { "editor.defaultFormatter": "biomejs.biome" },
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "tailwindCSS.experimental.classRegex": [
+    ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+    ["cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
+  ]
 }

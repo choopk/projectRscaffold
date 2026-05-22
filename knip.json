@@ -1,0 +1,28 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "workspaces": {
+    ".": {
+      "entry": ["knip.json"]
+    },
+    "apps/web": {
+      "entry": ["src/router.tsx", "src/routes/**/*.{ts,tsx}", "src/env.ts"],
+      "project": ["src/**/*.{ts,tsx}"],
+      "vite": true,
+      "vitest": true,
+      "tailwind": true,
+      "ignoreDependencies": [
+        "@tanstack/react-router-ssr-query",
+        "@tanstack/router-plugin",
+        "lucide-react",
+        "tailwindcss",
+        "@tailwindcss/typography",
+        "@testing-library/dom",
+        "@testing-library/react"
+      ]
+    },
+    "packages/typescript-config": {
+      "entry": ["base.json", "tanstack-start.json"],
+      "ignoreUnresolved": ["vite/client"]
+    }
+  }
+}
