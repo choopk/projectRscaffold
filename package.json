@@ -9,11 +9,17 @@
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
-    "lint": "turbo run lint",
     "check-types": "turbo run check-types",
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
+    "format": "biome format --write .",
+    "format:check": "biome format .",
+    "check": "pnpm lint && pnpm format:check && pnpm check-types",
     "clean": "turbo run clean && rm -rf node_modules .turbo"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.4.15",
+    "oxlint": "^1.66.0",
     "turbo": "2.9.14",
     "typescript": "6.0.3"
   }
